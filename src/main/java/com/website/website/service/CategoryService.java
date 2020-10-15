@@ -339,7 +339,7 @@ public class CategoryService extends BaseController implements ICategoryService 
         }
         if(categoryIds.size()!=0&&subCategoryIds.size()!=0)
         {
-            return StockListBySubCategoryIds;
+            return stockNames;
         }
         return "nothing to show";
 

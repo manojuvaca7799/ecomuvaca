@@ -300,8 +300,10 @@ public class CategoryService extends BaseController implements ICategoryService 
         String userId1 = getLoggedInUserId();
         User u = userDao.findById(userId1);
         List<String> categoryIdsList = u.getCategoryAccess(); //category ids
+
         List<Category> categoryList = categoryDao.getUserCategoriesById(categoryIdsList);
         List<SubCategory> subCategoryList = categoryDao.getUserSubCategoriesById(categoryIdsList);
+
         List<String> subCategoriesIds = new ArrayList<>();
 
         for (int l = 0; l < subCategoryList.size(); l++)
@@ -313,9 +315,13 @@ public class CategoryService extends BaseController implements ICategoryService 
         List<Stock> stockList = categoryDao.getStockByCategoryIds(categoryIdsList);
 
 
+
+
         List<String> categoryNames = new ArrayList<>();
         List<String> SubCategoryNames = new ArrayList<>();
         List<String> stockNames = new ArrayList<>();
+
+        List<String> stockNamesBySubCategoryIds = new ArrayList<>();
 
         for (int i = 0;i<categoryList.size();i++)
         {
@@ -329,17 +335,22 @@ public class CategoryService extends BaseController implements ICategoryService 
         {
             SubCategoryNames.add(subCategoryList.get(k).getName());
         }
-        if(categoryIds.isEmpty()&& subCategoryIds.isEmpty())
+        for(int l=0;l<StockListBySubCategoryIds.size();l++)
         {
-            return Arrays.asList(categoryNames,stockNames);
+            stockNamesBySubCategoryIds.add(StockListBySubCategoryIds.get(l).getName());
         }
-        if(categoryIds.size()!=0&&subCategoryIds.isEmpty())
+
+        if(categoryIds.size()==0 && subCategoryIds.size()==0)
         {
-            return Arrays.asList(categoryNames,stockNames);
+            return Arrays.asList(categoryList,stockList);
         }
-        if(categoryIds.size()!=0&&subCategoryIds.size()!=0)
+        if(categoryIds.size()==0 && subCategoryIds.size()!=0)
         {
-            return stockNames;
+            return Arrays.asList(categoryList,stockList);
+        }
+        if(categoryIds.size()!=0 && subCategoryIds.size()!=0)
+        {
+            return StockListBySubCategoryIds;
         }
         return null;
 

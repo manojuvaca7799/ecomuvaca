@@ -310,56 +310,27 @@ public class CategoryService extends BaseController implements ICategoryService 
         {
             subCategoriesIds.add(subCategoryList.get(l).getId());
         }
+        List<SubCategory> subCategoryListByCategoryIds = categoryDao.getUserSubCategoriesById(categoryIds);
+        List<Stock> stockListByCategoryIds = categoryDao.getStockByCategoryIds(categoryIds);
 
         List<Stock> StockListBySubCategoryIds = categoryDao.getStockByListofSubCategoryIds(subCategoriesIds);
         List<Stock> stockList = categoryDao.getStockByCategoryIds(categoryIdsList);
-
-
-
-
-        List<String> categoryNames = new ArrayList<>();
-        List<String> SubCategoryNames = new ArrayList<>();
-        List<String> stockNames = new ArrayList<>();
-
-        List<String> stockNamesBySubCategoryIds = new ArrayList<>();
-
-        for (int i = 0;i<categoryList.size();i++)
-        {
-            categoryNames.add(categoryList.get(i).getName());
-        }
-        for(int j=0;j<stockList.size();j++)
-        {
-            stockNames.add(stockList.get(j).getName());
-        }
-        for(int k=0;k<subCategoryList.size();k++)
-        {
-            SubCategoryNames.add(subCategoryList.get(k).getName());
-        }
-        for(int l=0;l<StockListBySubCategoryIds.size();l++)
-        {
-            stockNamesBySubCategoryIds.add(StockListBySubCategoryIds.get(l).getName());
-        }
 
         if(categoryIds.size()==0 && subCategoryIds.size()==0)
         {
             return Arrays.asList(categoryList,stockList);
         }
-        if(categoryIds.size()==0 && subCategoryIds.size()!=0)
+        if(categoryIds.size()!=0 && subCategoryIds.size()==0)
         {
-            return Arrays.asList(categoryList,stockList);
+            return Arrays.asList(subCategoryListByCategoryIds,stockListByCategoryIds);
         }
         if(categoryIds.size()!=0 && subCategoryIds.size()!=0)
         {
             return StockListBySubCategoryIds;
         }
         return null;
-
+    }
 }
-
-
-
-
-}	
 	
 	
 	

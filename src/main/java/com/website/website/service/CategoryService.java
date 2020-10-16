@@ -297,7 +297,7 @@ public class CategoryService extends BaseController implements ICategoryService 
 	@Override
 	public Object getCategoryAndStockByListOfCategoryIds(List<String> categoryIds,List<String> subCategoryIds) {
 
-        String userId1 = getLoggedInUserId();
+      String userId1 = getLoggedInUserId();
         User u = userDao.findById(userId1);
         List<String> categoryIdsList = u.getCategoryAccess(); //category ids
         List<Category> categoryList = categoryDao.getUserCategoriesById(categoryIdsList);
@@ -313,9 +313,13 @@ public class CategoryService extends BaseController implements ICategoryService 
         List<Stock> stockList = categoryDao.getStockByCategoryIds(categoryIdsList);
 
 
+
+
         List<String> categoryNames = new ArrayList<>();
         List<String> SubCategoryNames = new ArrayList<>();
         List<String> stockNames = new ArrayList<>();
+
+        List<String> stockNamesBySubCategoryIds = new ArrayList<>();
 
         for (int i = 0;i<categoryList.size();i++)
         {
@@ -329,6 +333,11 @@ public class CategoryService extends BaseController implements ICategoryService 
         {
             SubCategoryNames.add(subCategoryList.get(k).getName());
         }
+        for(int l=0;l<StockListBySubCategoryIds.size();l++)
+        {
+            stockNamesBySubCategoryIds.add(StockListBySubCategoryIds.get(l).getName());
+        }
+
         if(categoryIds.isEmpty()&& subCategoryIds.isEmpty())
         {
             return Arrays.asList(categoryNames,stockNames);
@@ -339,10 +348,9 @@ public class CategoryService extends BaseController implements ICategoryService 
         }
         if(categoryIds.size()!=0&&subCategoryIds.size()!=0)
         {
-            return stockNames;
+            return stockNamesBySubCategoryIds;
         }
-        return "nothing to show";
-
+        return null;
 }
 
 	@Override

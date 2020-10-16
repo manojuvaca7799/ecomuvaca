@@ -297,7 +297,7 @@ public class CategoryService extends BaseController implements ICategoryService 
 	@Override
 	public Object getCategoryAndStockByListOfCategoryIds(List<String> categoryIds,List<String> subCategoryIds) {
 
-        String userId1 = getLoggedInUserId();
+      String userId1 = getLoggedInUserId();
         User u = userDao.findById(userId1);
         List<String> categoryIdsList = u.getCategoryAccess(); //category ids
 
@@ -336,6 +336,14 @@ public class CategoryService extends BaseController implements ICategoryService 
             SubCategoryNames.add(subCategoryList.get(k).getName());
         }
         for(int l=0;l<StockListBySubCategoryIds.size();l++)
+<<<<<<< HEAD
+=======
+        {
+            stockNamesBySubCategoryIds.add(StockListBySubCategoryIds.get(l).getName());
+        }
+
+        if(categoryIds.isEmpty()&& subCategoryIds.isEmpty())
+>>>>>>> ccfafcffafe2b56a41dbe3b8d9d51ddf6ecca613
         {
             stockNamesBySubCategoryIds.add(StockListBySubCategoryIds.get(l).getName());
         }
@@ -350,10 +358,13 @@ public class CategoryService extends BaseController implements ICategoryService 
         }
         if(categoryIds.size()!=0 && subCategoryIds.size()!=0)
         {
-            return StockListBySubCategoryIds;
+            return stockNamesBySubCategoryIds;
         }
         return null;
+<<<<<<< HEAD
 
+=======
+>>>>>>> ccfafcffafe2b56a41dbe3b8d9d51ddf6ecca613
 }
 
 	@Override

@@ -310,6 +310,7 @@ public class CategoryService extends BaseController implements ICategoryService 
         {
             subCategoriesIds.add(subCategoryList.get(l).getId());
         }
+        List<Category> categoryListByCategoryIds = categoryDao.getUserCategoriesById(categoryIds);
         List<SubCategory> subCategoryListByCategoryIds = categoryDao.getUserSubCategoriesById(categoryIds);
         List<Stock> stockListByCategoryIds = categoryDao.getStockByCategoryIds(categoryIds);
 
@@ -322,7 +323,7 @@ public class CategoryService extends BaseController implements ICategoryService 
         }
         if(categoryIds.size()!=0 && subCategoryIds.size()==0)
         {
-            return Arrays.asList(categoryList,stockListByCategoryIds,subCategoryListByCategoryIds);
+            return Arrays.asList(categoryListByCategoryIds,stockListByCategoryIds,subCategoryListByCategoryIds);
         }
         if(categoryIds.size()!=0 && subCategoryIds.size()!=0)
         {

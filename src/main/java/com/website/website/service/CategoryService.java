@@ -323,7 +323,7 @@ public class CategoryService extends BaseController implements ICategoryService 
         }
         if(categoryIds.size()!=0 && subCategoryIds.size()==0)
         {
-            return Arrays.asList(categoryList,subCategoryListByCategoryIds,stockListByCategoryIds);
+            return Arrays.asList(categoryList,stockListByCategoryIds,subCategoryListByCategoryIds);
         }
         if(categoryIds.size()!=0 && subCategoryIds.size()!=0)
         {
